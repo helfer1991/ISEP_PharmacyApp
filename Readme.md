@@ -4,4 +4,5 @@
  * This application was created on the context of LAPR3 course unit of ISEP (Instituto Superior de Engenharia do Porto). The final grade was 18/20. 
  * I was part of a team of 6 people and each one of us had their use cases and was responsible for the full development cycle, as in, everything related with the documentation (including the E-R Model), implementation and testing.
  * Technologies used: Java, JavaFX, C, Assembly, SQL, Jenkins and SonarQube.
+ * We used the Agile Methodology to tackle this challenge, following an iterative process. Jira was useful to assist the team on the project management.
  * For further information check the wiki folder.
