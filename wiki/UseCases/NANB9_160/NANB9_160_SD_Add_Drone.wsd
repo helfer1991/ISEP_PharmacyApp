@@ -1,0 +1,60 @@
+@startuml
+autonumber
+actor "Administrative" as ADM
+
+participant ":AddDroneUI" as UI
+participant ":ManageVehiclesController" as CTRL
+participant ":ManagePharmaciesController" as PHACTRL
+participant "scdto:DroneDTO" as SCDTO
+participant "DTOConverter" as DTO
+participant "sc:Drone" as SC
+participant "ServiceVehicle" as SV
+participant "bat:Battery" as BAT
+participant "vdb:VehicleDB" as SCDB
+
+activate ADM
+ADM -> UI : begins the process of adding a drone
+activate UI
+UI -> PHACTRL : tmp = getPharmaciesByAdministrator()
+activate PHACTRL
+deactivate PHACTRL
+UI --> ADM : asks for the necessary data(selected pharmacy, weight, batteryCapacity)
+deactivate UI
+
+ADM -> UI : inserts the solicited data
+activate UI
+UI -> CTRL : new droneDTO(selectedPharmacy, weight, batteryCapacity)
+activate CTRL
+CTRL -> DTO: v = convertVehicle(s)
+activate DTO
+DTO --> SC ** : create(iddrone, qrCode, weight, idBattery, batteryCapacity)
+activate SC
+SC --> BAT ** : create(capacity)
+deactivate SC
+deactivate DTO
+deactivate CTRL
+
+UI --> ADM : validates the data, presents it and asks the administrator for its confirmation
+deactivate UI
+
+ADM -> UI : confirms
+activate UI
+
+UI -> CTRL: registerdrone()
+activate CTRL
+CTRL ->SCDTO: insertVehicle(s)
+activate SCDTO
+SCDTO -> SV : insertVehicle(s)
+activate SV
+SV -> SCDB : insertVehicle(s)
+activate SCDB
+deactivate SCDB
+deactivate SV
+deactivate SCDTO
+deactivate CTRL
+
+UI --> ADM : adds the drone to a list of drones
+deactivate UI
+
+deactivate ADM
+@enduml

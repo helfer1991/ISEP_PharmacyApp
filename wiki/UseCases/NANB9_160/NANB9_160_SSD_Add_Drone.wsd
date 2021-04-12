@@ -1,0 +1,24 @@
+@startuml 
+
+autonumber
+actor "Administrator" as ADM
+
+activate ADM
+ADM -> ":System" : begins the process of adding a drone
+activate ":System"
+":System" --> ADM : asks for the necessary data(id_Drone, qrCode, status, id_Battery, capacity)
+deactivate ":System"
+
+ADM -> ":System" : inserts the solicited data
+activate ":System"
+":System" --> ADM : validates the data, presents it and asks the administrator for its confirmation
+deactivate ":System"
+
+ADM -> ":System" : confirms
+activate ":System"
+":System" --> ADM : adds the drone to a list of drones
+deactivate ":System"
+
+deactivate ADM
+
+@enduml

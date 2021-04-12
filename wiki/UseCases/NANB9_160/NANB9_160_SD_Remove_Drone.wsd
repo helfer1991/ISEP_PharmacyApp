@@ -1,0 +1,54 @@
+@startuml
+autonumber
+actor "Administrative" as ADM
+
+participant ":TabManageDronesUI" as UI
+participant ":ManageVehiclesController" as CTRL
+participant ":ManagePharmaciesController" as PHACTRL
+participant "scdto:DroneDTO" as SCDTO
+participant "DTOConverter" as DTO
+participant "ServiceVehicle" as SV
+participant "VehicleDB" as VDB
+
+activate ADM
+ADM -> UI : begins the process of removing a drone
+activate UI
+UI -> PHACTRL : tmp = getPharmaciesByAdministrator()
+activate PHACTRL
+deactivate PHACTRL
+UI -> CTRL : loadDronesByPharmacy()
+activate CTRL
+CTRL -> SV : droness = getDronesByPharmacy(pharmacy)
+activate SV
+SV -> VDB : getAvailableVehiclesByPharmacy(pharmacy)
+activate VDB
+deactivate VDB
+deactivate SV
+deactivate CTRL
+UI --> ADM : shows a list of drones and asks which one is to be removed
+deactivate UI
+
+ADM -> UI : picks one drone
+activate UI
+UI --> ADM : validates the data, presents it and asks the administrator for its confirmation
+deactivate UI
+
+ADM -> UI : confirms
+
+activate UI
+UI -> CTRL : removeVehicle(s, selectedPharmacy)
+activate CTRL
+CTRL -> SV : removeVehicle(v, selectedPharmacy)
+SV -> VDB : removeVehicle(v, selectedPharmacy)
+activate VDB
+deactivate VDB
+activate SV
+deactivate SV
+deactivate DTO
+deactivate CTRL
+
+UI --> ADM : removes drone from a list of drones
+deactivate UI
+
+deactivate ADM
+@enduml

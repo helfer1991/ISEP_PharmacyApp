@@ -1,0 +1,10 @@
+﻿NAME;MAXIMUM_PAYLOAD;MINIMUM_PAYLOAD;FK_ADDRESS_ID;SCOOTER_CHARGERS_NUMBER;DRONE_CHARGERS_NUMBER;Scooter_Charger_Capacity;DRONE_Charger_Capacity;;
+Farmacia Sousa Torres;60;0,5;1;10;5;30;5;;
+Farmacia Guifoes;60;0,5;2;10;5;30;5;;
+Farmacia Avenida;60;0,5;3;10;5;30;5;;
+Farmacia sa;60;0,5;4;10;5;30;5;;
+Farmacia de Fanzeres;60;0,5;5;10;5;30;5;;
+Farmacia Sa da Bandeira;60;0,5;6;10;5;30;5;;
+Farmacia Couto;60;0,5;7;10;5;30;5;;
+Farmacia Marques da Cunha;60;0,5;8;10;5;30;5;;
+Farmacia Central(Valongo);60;0,5;9;10;5;30;5;;

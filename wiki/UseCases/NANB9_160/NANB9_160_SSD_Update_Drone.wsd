@@ -1,0 +1,24 @@
+@startuml 
+
+autonumber
+actor "Administrator" as ADM
+
+activate ADM
+ADM -> ":System" : begins the process of updating a drone
+activate ":System"
+":System" --> ADM : shows a list of drone and asks which one is to be updated
+deactivate ":System"
+
+ADM -> ":System" : picks one drone
+activate ":System"
+":System" --> ADM : validates the information, presents it and asks the administrator for its confirmation
+deactivate ":System"
+
+ADM -> ":System" : confirms
+activate ":System"
+":System" --> ADM : updates the drone from the list
+deactivate ":System"
+
+deactivate ADM
+
+@enduml

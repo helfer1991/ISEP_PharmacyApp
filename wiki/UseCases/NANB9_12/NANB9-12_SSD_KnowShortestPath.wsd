@@ -1,0 +1,24 @@
+@startuml 
+
+autonumber
+actor "Administrator" as ADM
+
+activate ADM
+ADM -> ":System" : begins the process of knowing the most efficient path path
+activate ":System"
+":System" --> ADM : asks for the necessary data(pharmacy, vehicle and delivery run)
+deactivate ":System"
+
+ADM -> ":System" : inserts the solicited data
+activate ":System"
+":System" --> ADM : validates the data, presents it and asks the administrator for its confirmation
+deactivate ":System"
+
+ADM -> ":System" : confirms
+activate ":System"
+":System" --> ADM : shows the information requested
+deactivate ":System"
+
+deactivate ADM
+
+@enduml

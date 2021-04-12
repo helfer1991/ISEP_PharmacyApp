@@ -1,0 +1,59 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class Battery {
+    -int id_Battery
+    -int capacity
+    +Battery(id_Battery, capacity)
+    +validateBattery(bat)
+}
+
+class BatteryDB {
+    +save(bat)
+}
+
+class ScooterDB {
+    +save(sc)
+}
+
+class Scooter {
+  -int id_Scooter
+  -int qrCode
+  -int status
+  -int id_Battery
+  -int capacity
+  +Scooter(id_Scooter, qrCode, status, id_Battery, capacity)
+  +Battery(id_Battery, capacity)
+}
+
+class Pharmacy {
+  -String designation
+  +ListScooter getListScooter()
+}
+
+class ListScooters {
+  +Scooter newScooter(id_Scooter, qrCode, status, id_Battery, capacity)
+  +validateScooter(Scooter sc)
+  +AddScooter(Scooter sc)
+}
+
+class AddScooterController {
+    +newScooter(id_Scooter, qrCode, status, id_Battery, capacity)
+    +AddScooter(sc)
+}
+
+class AddScooterUI {
+}
+
+AddScooterUI ..> AddScooterController
+AddScooterController ..> Pharmacy
+AddScooterController ..> ListScooters
+AddScooterController ..> Scooter
+
+ListScooters "1" --> "*" Scooter 
+Scooter --> Battery
+Scooter ..> ScooterDB
+Battery ..> BatteryDB
+
+@enduml

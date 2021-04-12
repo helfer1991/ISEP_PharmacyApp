@@ -1,0 +1,55 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class BatteryDB {
+    +delete(bat)
+}
+
+class ScooterDB {
+    +delete(sc)
+    +getListOfScooters()
+}
+
+class Scooter {
+  -int id_Scooter
+  -int qrCode
+  -int status
+  -int id_Battery
+  -int capacity
+  +Scooter(id_Scooter, qrCode, status, id_Battery, capacity)
+  +Battery(id_Battery, capacity)
+}
+
+class Pharmacy {
+  -int id_Pharmacy
+  -String nam
+  -int maximumPayload
+  +ListScooter getListScooter()
+  +RemoveScooterById(id_Scooter)
+}
+
+class ListScooters {
+  +getListOfScooter(Scooter sc)
+}
+
+class RemoveScooterController {
+    +getListOfScooters()
+    +removeScooterById(id_Scooter)
+}
+
+class RemoveScooterUI {
+}
+
+RemoveScooterUI ..> RemoveScooterController
+RemoveScooterController ..> Pharmacy
+RemoveScooterController ..> ListScooters
+RemoveScooterController ..> Scooter
+
+ListScooters "1" --> "*" Scooter
+ListScooters ..> ScooterDB
+Scooter --> Battery
+Scooter ..> ScooterDB
+Battery ..> BatteryDB
+
+@enduml

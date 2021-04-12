@@ -1,0 +1,54 @@
+@startuml
+autonumber
+actor "Administrative" as ADM
+
+participant ":TabManageScootersUI" as UI
+participant ":ManageVehiclesController" as CTRL
+participant ":ManagePharmaciesController" as PHACTRL
+participant "scdto:ScooterDTO" as SCDTO
+participant "DTOConverter" as DTO
+participant "ServiceVehicle" as SV
+participant "VehicleDB" as VDB
+
+activate ADM
+ADM -> UI : begins the process of udpating a scooter
+activate UI
+UI -> PHACTRL : tmp = getPharmaciesByAdministrator()
+activate PHACTRL
+deactivate PHACTRL
+UI -> CTRL : loadScootersByPharmacy()
+activate CTRL
+CTRL -> SV : scooters = getScootersByPharmacy(pharmacy)
+activate SV
+SV -> VDB : getAvailableVehiclesByPharmacy(pharmacy)
+activate VDB
+deactivate VDB
+deactivate SV
+deactivate CTRL
+UI --> ADM : shows a list of scooters and asks which one is to be updated
+deactivate UI
+
+ADM -> UI : picks one scooter
+activate UI
+UI --> ADM : validates the data, presents it and asks the administrator for its confirmation
+deactivate UI
+
+ADM -> UI : confirms
+
+activate UI
+UI -> CTRL : updateVehicle(s, selectedPharmacy)
+activate CTRL
+CTRL -> SV : updateVehicle(v, selectedPharmacy)
+SV -> VDB : updateVehicle(v, selectedPharmacy)
+activate VDB
+deactivate VDB
+activate SV
+deactivate SV
+deactivate DTO
+deactivate CTRL
+
+UI --> ADM : updates scooter from a list of scooters
+deactivate UI
+
+deactivate ADM
+@enduml

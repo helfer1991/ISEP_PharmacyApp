@@ -1,0 +1,62 @@
+@startuml
+
+left to right direction
+
+actor Administrator AS a
+actor Courier AS c
+actor Client AS cl
+actor Unregistered_User AS u
+
+usecase "NANB9-22 - Add or update a courier to/from a list of couriers" AS UC1
+usecase "NANB9-23 - Register Client" AS UC2
+usecase "NANB9-8 - Add scooter to a list of scooters" AS UC3
+usecase "NANB9-118 - Remove a scooter from a list of scooters" AS UC4
+usecase "NANB9-9 - Register a new pharmacy and set park limit" AS UC5
+usecase "NANB9-14 - Charge scooter when it's parked" AS UC6
+usecase "NANB9-17 - Make a request for home delivery" AS UC7
+usecase "NANB9-18 - Notify the courier when the scooter is parked correctly" AS UC8
+usecase "NANB9-46 - Simulate Park System" AS UC9
+usecase "NANB9-47 - Manage Stocks" AS UC10
+usecase "NANB9-158 - Transfer Products" AS UC11
+usecase "NANB9-159 - Buy With Backorder" AS UC12
+usecase "NANB9-90-94 - User Login System" AS UC13
+usecase "NANB9-12 - Want to know the most efficient path for each delivery" AS UC14
+usecase "NANB9-13 - Know the amount of energy required to perform a delivery run by scooter" AS UC15
+usecase "NANB9-27 - Mark the order as delivered" AS UC16
+usecase "NANB9-20 - Generate an invoice and sent by e-mail to the client" AS UC17
+usecase "NANB9-24 - Know the available earned credits" AS UC18
+usecase "NANB9-147 - Notify client when the delivery run starts" AS UC19
+usecase "NANB9-152 - Pay for online delivery using credits" AS UC20
+usecase "NANB9-158 - Transfer products from other pharmacies" AS UC21
+usecase "NANB9-165 - Know the amount of energy required to perform a delivery run by drone" AS UC22
+usecase "NANB9-160 - Add, remove or update list of drones" AS UC23
+usecase "NANB9-217 - Calculate the influence of weather on the energy requirements of a delivery run" AS UC24
+usecase "NANB9-213 - Want to be able to use the app with file input" AS UC25
+
+a --> UC1
+u --> UC2
+a --> UC3 
+a --> UC4
+a --> UC5 
+c --> UC6
+cl --> UC7
+c --> UC8
+a --> UC9
+a --> UC10 
+a --> UC11
+cl --> UC12
+a --> UC13
+a --> UC14
+c --> UC15
+a --> UC16 
+a --> UC17
+cl --> UC18 
+c --> UC19
+cl --> UC20
+a --> UC21
+c --> UC22
+a --> UC23 
+a --> UC24
+a --> UC25
+
+@enduml

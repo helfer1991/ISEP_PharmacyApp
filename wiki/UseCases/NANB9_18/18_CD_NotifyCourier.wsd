@@ -1,0 +1,45 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class WatchFolderThread {
+    +WatchFolderThread newWatchFolderThread()
+}
+
+class ScooterDB {
+    +updateScooterStatus(oSensorFile)
+}
+
+class CourierDB {
+    +Courier getCourierByScooterId(scooterId)
+}
+
+class ServiceParkSystemFiles {
+    +validateDetectedFile(fileName)
+    +checkIfDataFileIsPresent(fileName)
+    +ParkSensorFile readDataFile(fileName)
+    +deleteFileInInputDirectory(flagFileName)
+    +deleteFileInInputDirectory(dataFileName)
+}
+
+class NotifyCourierController {
+    +startFolderWatch()
+    -processDetectedFile(fileName)
+}
+
+class PharmaDeliveriesApp {
+    +EmailService getEmailService()
+}
+
+interface EmailService {
+    +sendEmail(courierEmail, subject, emailContent)
+}
+
+NotifyCourierController ..> WatchFolderThread
+NotifyCourierController ..> ServiceParkSystemFiles
+NotifyCourierController ..> ScooterDB
+NotifyCourierController ..> CourierDB
+NotifyCourierController ..> PharmaDeliveriesApp
+NotifyCourierController ..> EmailService
+
+
+@enduml

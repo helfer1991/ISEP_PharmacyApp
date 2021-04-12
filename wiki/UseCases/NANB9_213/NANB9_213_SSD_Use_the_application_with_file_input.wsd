@@ -1,0 +1,24 @@
+@startuml 
+
+autonumber
+actor "Administrator" as ADM
+
+activate ADM
+ADM -> ":System" : begins the process of instructing the app to read a file
+activate ":System"
+":System" --> ADM : asks for the necessary data(title and extension of the file)
+deactivate ":System"
+
+ADM -> ":System" : inserts the solicited data
+activate ":System"
+":System" --> ADM : validates the data, presents it and asks the administrator for its confirmation
+deactivate ":System"
+
+ADM -> ":System" : confirms
+activate ":System"
+":System" --> ADM : shows the information requested
+deactivate ":System"
+
+deactivate ADM
+
+@enduml

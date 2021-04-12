@@ -1,0 +1,24 @@
+@startuml 
+
+autonumber
+actor "Administrator" as ADM
+
+activate ADM
+ADM -> ":System" : begins the process of removing a scooter
+activate ":System"
+":System" --> ADM : shows a list of scooter and asks which one is to be removed
+deactivate ":System"
+
+ADM -> ":System" : picks one scooter
+activate ":System"
+":System" --> ADM : validates the information, presents it and asks the administrator for its confirmation
+deactivate ":System"
+
+ADM -> ":System" : confirms
+activate ":System"
+":System" --> ADM : removes the scooter from the list
+deactivate ":System"
+
+deactivate ADM
+
+@enduml

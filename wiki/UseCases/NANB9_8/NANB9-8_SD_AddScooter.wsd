@@ -1,0 +1,74 @@
+@startuml
+autonumber
+actor "Administrative" as ADM
+
+participant ":AddScooterUI" as UI
+participant ":AddScooterController" as CTRL
+participant ":Pharmacy" as PHA
+participant "ls:ListScooters" as LS
+participant "sc:Scooter" as SC
+participant "bat:Battery" as BAT
+participant "scdb:ScooterDB" as SCDB
+participant "batdb:BatteryDB" as BATDB
+
+activate ADM
+ADM -> UI : begins the process of adding a scooter
+activate UI
+UI --> ADM : asks for the necessary data(id_Scooter, qrCode, status, id_Battery, capacity)
+deactivate UI
+
+ADM -> UI : inserts the solicited data
+activate UI
+UI -> CTRL : newScooter(id_Scooter, qrCode, status, id_Battery, capacity)
+activate CTRL
+CTRL -> PHA: ls = getListScooters()
+activate PHA
+deactivate PHA
+CTRL -> LS: sc=newScooter(id_Scooter, qrCode, status, id_Battery, capacity)
+activate LS
+LS --> SC ** : create(id_Scooter, qrCode, status, id_Battery, capacity)
+activate SC
+SC --> BAT ** : create(id_Battery, capacity)
+deactivate SC
+activate BAT
+BAT --> BAT : validateBattery(bat)
+deactivate BAT
+deactivate LS
+
+
+CTRL -> LS: validateScooter(sc)
+activate LS
+deactivate LS
+
+deactivate CTRL
+UI --> ADM : validates the data, presents it and asks the administrator for its confirmation
+deactivate UI
+
+ADM -> UI : confirms
+activate UI
+
+UI -> CTRL: registerScooter()
+activate CTRL
+CTRL ->LS: registerScooter(sc)
+activate LS
+LS -> LS: validateScooter(sc)
+LS -> LS: addScooter(sc)
+LS --> SC: save(sc)
+activate SC
+SC --> SCDB: save(sc)
+activate SCDB
+deactivate SCDB
+SC --> BATDB : save(bat)
+activate BATDB
+deactivate BATDB
+deactivate SC
+
+
+deactivate LS
+deactivate CTRL
+
+UI --> ADM : adds the scooter to a list of scooters
+deactivate UI
+
+deactivate ADM
+@enduml

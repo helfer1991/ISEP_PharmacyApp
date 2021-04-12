@@ -1,0 +1,183 @@
+@startuml
+left to right direction
+
+class User {
+    -String email
+    -String password
+}
+
+class UserRole {
+    -String role 
+    -String description
+}
+
+class Administrator {
+
+}
+
+class Person {
+    -String name
+    -Integer nif
+}
+
+class Client {
+    -Integer credits
+}
+
+class Courier {
+    -Boolean isWorking
+    -Double weight
+}
+
+class CreditCard {
+    -String number 
+    -Integer ccv 
+    -String valid_thru
+}
+
+class Pharmacy {
+    -String name
+    -Integer id
+    -Float maximumPayloadCourier
+    -Float minimumLoadCourier
+}
+
+class Park {
+    -Integer id
+    -Integer scooterChargersNumber
+    -Integer droneChargersNumber
+    -Float scooterChargerCapacity
+    -Float droneChargerCapacity
+}
+
+class Address {
+    -Integer id
+    -Double latitude
+    -Double longitude
+    -String strAddress
+    -String zipcode
+    -Float elevation
+}
+
+class Vehicle {
+    -Integer id
+    -Integer qrCode
+    -String isAvailable
+    -Integer weight
+    -Integer actualCharge
+}
+
+class Scooter {
+
+}
+
+class Drone {
+
+}
+
+class Charger {
+
+}
+
+class ClientAccount {
+
+}
+
+class CreditsAccount {
+    -Integer amount
+}
+
+class Battery {
+    -Integer idBattery
+    -Float capacity
+}
+
+class ShoppingCart {
+    -Map productMap
+    -Float totalWeight
+}
+
+class Product {
+    -Integer id
+    -String description
+    -Float weight
+    -Float price
+}
+
+class Storage {
+
+}
+
+class Order {
+    -Integer idOrder
+    -Integer deliveryFee
+    -Integer status 
+    -String dateEntry
+    -Integer pharmacyId
+}
+
+class Invoice {
+    -String Tag 
+    -Float totalCost 
+    -Date sdf
+}
+
+class Payment {
+    -Date dateEntry
+    -Integer amount
+}
+
+class Quantity {
+}
+
+class Transfer {
+    -Integer orderId
+    -Integer transferId
+}
+
+class DeliveryRun {
+    -Integer id
+    -String date
+    -Double energyCost
+}
+
+Person "1" <|-- "1" Administrator : is >
+User "1..*" *-- "1" UserRole : has >
+User "1" <|-- "1" Person : is >
+Person "1" <|-- "1" Client : is >
+Person "1" <|-- "1" Courier : is >
+Pharmacy "1" o-- "1" Address : has >
+Administrator "1" -- "1..*" Pharmacy : manages >
+Pharmacy "1" *-- "1..*" Park : has >
+Client "1" *-- "1..*" CreditCard : has >
+Client "1" *-- "1..*" Address : has >
+Courier "1" -- "1..*" Vehicle : drives >
+Vehicle "1" <|-- "1" Drone : is >
+Vehicle "1" <|-- "1" Scooter : is >
+Vehicle "1..*" *-- "1" Battery : has >
+Vehicle "1..*" -- "1" Park : has <
+Vehicle "1" -- "1..*" Park : parks at >
+Park "1" *-- "1..*" Charger : has >
+Charger "1" -- "1..*" Battery : charges >
+Client "1" *-- "1" ClientAccount : has >
+Pharmacy "1" *-- "1" Storage : has >
+Storage "1" -- "1..*" Product : has >
+Quantity .. Product
+Quantity .. ShoppingCart
+Order "1" *-- "1" ShoppingCart : relates to >
+Order "1" *-- "1" Address : has >
+Invoice "1" -- "1" Order : originates <
+ClientAccount "1" -- "1..*" ShoppingCart : has >
+ClientAccount "1" *-- "1" CreditsAccount : has >
+ShoppingCart "1" -- "1..*" Product : has >
+Invoice "1" -- "1" Payment : originates <
+Payment "1..*" -- "1" ClientAccount : associate
+Transfer "1" -- "1..*" Product : has >
+Transfer "1" -- "2" Pharmacy : associated with >
+Transfer "1..*" -- "1" Courier : associated with >
+DeliveryRun "1..*" -- "1" Courier : executes <
+DeliveryRun "1" *-- "1..*" Order : has >
+DeliveryRun "1" -- "1..*" Client : associated with >
+
+
+@enduml

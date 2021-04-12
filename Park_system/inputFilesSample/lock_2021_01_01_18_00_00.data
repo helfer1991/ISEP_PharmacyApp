@@ -1,0 +1,4 @@
+Park_Charger_Output: 100
+VehicleId: 0
+BatteryCapacity: 50
+ActualChargePercentage: 0

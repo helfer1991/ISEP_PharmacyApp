@@ -1,0 +1,54 @@
+@startuml
+autonumber
+actor "Administrative" as ADM
+
+participant ":TabManageDronesUI" as UI
+participant ":ManageVehiclesController" as CTRL
+participant ":ManagePharmaciesController" as PHACTRL
+participant "scdto:DroneDTO" as SCDTO
+participant "DTOConverter" as DTO
+participant "ServiceVehicle" as SV
+participant "VehicleDB" as VDB
+
+activate ADM
+ADM -> UI : begins the process of udpating a Drone
+activate UI
+UI -> PHACTRL : tmp = getPharmaciesByAdministrator()
+activate PHACTRL
+deactivate PHACTRL
+UI -> CTRL : loadDronesByPharmacy()
+activate CTRL
+CTRL -> SV : Drones = getDronesByPharmacy(pharmacy)
+activate SV
+SV -> VDB : getAvailableVehiclesByPharmacy(pharmacy)
+activate VDB
+deactivate VDB
+deactivate SV
+deactivate CTRL
+UI --> ADM : shows a list of Drones and asks which one is to be updated
+deactivate UI
+
+ADM -> UI : picks one Drone
+activate UI
+UI --> ADM : validates the data, presents it and asks the administrator for its confirmation
+deactivate UI
+
+ADM -> UI : confirms
+
+activate UI
+UI -> CTRL : updateVehicle(s, selectedPharmacy)
+activate CTRL
+CTRL -> SV : updateVehicle(v, selectedPharmacy)
+SV -> VDB : updateVehicle(v, selectedPharmacy)
+activate VDB
+deactivate VDB
+activate SV
+deactivate SV
+deactivate DTO
+deactivate CTRL
+
+UI --> ADM : updates Drone from a list of Drones
+deactivate UI
+
+deactivate ADM
+@enduml
